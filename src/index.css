@@ -1,1 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/forms";
+body{
+    background-color: rgb(230, 250, 240);
+}

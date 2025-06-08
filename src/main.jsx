@@ -8,6 +8,7 @@ import { SignIn } from './pages/SignIn.jsx'
 import { Home } from './pages/Home.jsx'
 import { SignUp } from './pages/SignUp.jsx'
 import { Header } from './components/Header.jsx'
+import { ForgotPassword } from './pages/ForgotPassword.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/profile" element={<Profile />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

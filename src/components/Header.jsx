@@ -1,4 +1,3 @@
-import React from 'react'
 import { useLocation, useNavigate } from 'react-router'
 
 export const Header = () => {
@@ -12,16 +11,16 @@ export const Header = () => {
     const navigate = useNavigate();
 
     return (
-        <div className='header border-b shadow-md bg-white '>
+        <div className='header border-b shadow-md p-2 pb-0 bg-white sticky top-0 z-50'>
             <header className='flex justify-between items-center max-w-6xl mx-auto'>
                 <div className='logo '>
                     <img
-                        className='h-5 cursor-pointer' src="https://static.rdc.moveaws.com/rdc-ui/logos/logo-brand.svg"
+                        className='h-5.25 cursor-pointer' src="https://static.rdc.moveaws.com/rdc-ui/logos/logo-brand.svg"
                         alt="logo"
                         onClick={() => navigate("/")}
                     />
                 </div>
-                <div className='nav-menu'>
+                <div className='nav-menu mr-3'>
                     <ul className='flex space-x-10'>
                         <li
                             className={`cursor-pointer py-3 font-semibold
