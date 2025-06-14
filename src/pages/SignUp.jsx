@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import OAuthButton from '../components/OAuthButton';
 import SignInButton from '../components/SignInButton';
 
+import { signUp } from 'aws-amplify/auth';
+import { useAuthContext } from '../AuthContext';
+
 export const SignUp = () => {
+
+  const navigate = useNavigate();
+
+
   const [formData, setFormData] = React.useState({
     name: '',
     email: '',
@@ -24,6 +31,37 @@ export const SignUp = () => {
     setShowPassword((prev) => !prev);
   }
 
+  const {login} = useAuthContext()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    try {
+
+      const { isSignUpComplete, userId, nextStep} = await signUp({
+        name: name,
+        username: email,
+        password: password,
+        attributes: {
+          email: email,
+          name: name
+        },
+        autoSignIn: true
+      });
+
+
+      if (nextStep?.signUpStep === 'CONFIRM_SIGN_UP') {
+        login();
+        sessionStorage.setItem("userId", userId);
+        navigate('/verify');
+      }
+    }
+    catch (error) {
+      alert('Error signing up.' + error.message);
+      return;
+    }
+  }
+
   return (
     <section>
       <h1 className='text-center font-bold text-3xl mt-5'>Register</h1>
@@ -36,7 +74,7 @@ export const SignUp = () => {
         </div>
 
         <div className='md:w-[67%] lg:w-[49%] sm:w-[100%] p-5 lg:ml-5'>
-          <form className='p-5'>
+          <form onSubmit={handleSubmit} className='p-5'>
             <input
               className="bg-white w-full rounded mb-5"
               type="text"

@@ -1,4 +1,6 @@
 import { useLocation, useNavigate } from 'react-router'
+import { useAuthContext } from '../AuthContext';
+import { signOut } from 'aws-amplify/auth';
 
 export const Header = () => {
 
@@ -8,7 +10,19 @@ export const Header = () => {
         return currentPath;
     }
 
+    const { isAuthenticated, logout } = useAuthContext();
+
+    const handleSignOut = async () => {
+        try {
+            await signOut();
+            logout(); // Update the context state
+
+        } catch (error) {
+            alert('Error signing out: ' + error.message);
+        }
+    }
     const navigate = useNavigate();
+
 
     return (
         <div className='header border-b shadow-md p-2 pb-0 bg-white sticky top-0 z-50'>
@@ -42,9 +56,9 @@ export const Header = () => {
                             className={`cursor-pointer py-3 font-semibold
                             ${currentUrl() === '/sign-in' ? "text-black" : "text-gray-500"} border-b-4
                             ${currentUrl() === '/sign-in' ? "border-b-orange-500" : "border-b-transparent"} `}
-                            onClick={() => navigate("/sign-in")}
+                            onClick={() => isAuthenticated === false ? navigate("/sign-in") : handleSignOut()}
                         >
-                            Sign In
+                            {isAuthenticated === false ? "Sign In" : "Sign Out"}
                         </li>
                     </ul>
                 </div>

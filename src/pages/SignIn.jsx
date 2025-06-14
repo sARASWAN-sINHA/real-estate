@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import OAuthButton from '../components/OAuthButton';
 import SignInButton from '../components/SignInButton';
+import { signIn } from 'aws-amplify/auth';
+import { useAuthContext } from '../AuthContext';
+
 
 export const SignIn = () => {
+
+  const navigate = useNavigate();
+  const {login, ...rest} = useAuthContext();
+
   const [formData, setFormData] = React.useState({
     email: '',
     password: ''
@@ -23,6 +30,29 @@ export const SignIn = () => {
     setShowPassword((prev) => !prev);
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+
+    try {
+
+      const { isSignedIn, nextStep } = await signIn({
+        username: email,
+        password: password
+
+      });
+
+      // Redirect to offers after successful sign-in
+
+      if (nextStep?.signInStep === 'DONE' && isSignedIn === true) {
+        login();
+        navigate('/offers');
+      }
+    } catch (error) {
+      alert('Error signing in: ' + error.message);
+    }
+  }
+
   return (
     <section>
       <h1 className='text-center font-bold text-3xl mt-5'>Sign In</h1>
@@ -37,7 +67,7 @@ export const SignIn = () => {
         </div>
 
         <div className='md:w-[67%] lg:w-[49%] sm:w-[100%] p-5 lg:ml-5'>
-          <form className='p-5'>
+          <form onSubmit={handleSubmit} className='p-5'>
             <input
               className="bg-white w-full rounded mb-5"
               type="email"
@@ -79,4 +109,6 @@ export const SignIn = () => {
     </section>
 
   )
+
+
 }

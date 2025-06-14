@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-realtor-dev-3c781-authRole",
+      "UnauthRoleArn": "arn:aws:iam::900840276973:role/amplify-realtor-dev-3c781-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::900840276973:role/amplify-realtor-dev-3c781-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-realtor-dev-3c781-deployment",
+      "UnauthRoleName": "amplify-realtor-dev-3c781-unauthRole",
+      "StackName": "amplify-realtor-dev-3c781",
+      "StackId": "arn:aws:cloudformation:eu-north-1:900840276973:stack/amplify-realtor-dev-3c781/23684b50-4934-11f0-a953-0e5efdce5f53",
+      "AmplifyAppId": "d24j3507mu1hjm"
+    },
+    "categories": {
+      "auth": {
+        "realtor7de226b7": {}
+      }
+    }
+  }
+}

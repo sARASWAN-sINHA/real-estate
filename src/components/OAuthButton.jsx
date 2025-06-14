@@ -3,7 +3,9 @@ import { FcGoogle } from "react-icons/fc";
 const OAuthButton = () => {
     return (
         <div>
-            <button className="
+            <button
+                type="button"
+                className="
                 flex items-center justify-center
                 w-full
                 bg-red-600 text-white
@@ -13,7 +15,7 @@ const OAuthButton = () => {
                 hover:bg-red-700 hover:shadow-lg
                 transition duration-200 ease-in-out
                 rounded">
-                <FcGoogle className="text-xl mr-1 bg-white rounded-full"/>
+                <FcGoogle className="text-xl mr-1 bg-white rounded-full" />
                 Continue with Google
             </button>
         </div>
